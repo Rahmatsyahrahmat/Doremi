@@ -52,4 +52,8 @@ dependencies {
     implementation "org.koin:koin-core:$koin_version"
     implementation "org.koin:koin-android:$koin_version"
 
+    //encryption
+    implementation "net.zetetic:android-database-sqlcipher:$sqlchiper_version"
+    implementation "androidx.sqlite:sqlite:$sqlite_version"
+
 }
