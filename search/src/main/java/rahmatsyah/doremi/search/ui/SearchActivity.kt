@@ -183,4 +183,11 @@ class SearchActivity : AppCompatActivity() {
         else
             View.GONE
 
+    override fun startActivity(intent: Intent?) {
+        if (viewModel.isPlaying()){
+            viewModel.stopMediaPlayer()
+        }
+        super.startActivity(intent)
+    }
+
 }
