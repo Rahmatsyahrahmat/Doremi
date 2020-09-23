@@ -62,5 +62,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
+    //lottie
+    api "com.airbnb.android:lottie:$lottie_version"
 
 }

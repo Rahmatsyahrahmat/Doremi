@@ -8,12 +8,9 @@
     android:layout_height="match_parent"
     tools:context="rahmatsyah.doremi.favorite.ui.artist.FavoriteArtistActivity">
 
-    <TextView
-        android:id="@+id/noListArtists"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/no_list_of_favorite_artists"
-        android:gravity="center"
+    <include
+        android:id="@+id/emptyList"
+        layout="@layout/view_empty"
         android:visibility="gone"/>
 
     <TextView

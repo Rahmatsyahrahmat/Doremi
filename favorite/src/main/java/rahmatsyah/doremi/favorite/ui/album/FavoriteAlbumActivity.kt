@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_favorite_album.*
+import kotlinx.android.synthetic.main.view_empty.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import rahmatsyah.doremi.app.ui.album.AlbumActivity
@@ -35,8 +36,10 @@ class FavoriteAlbumActivity : AppCompatActivity() {
         }
 
         viewModel.getFavoriteAlbums().observe(this, Observer {
-            if (it.isNullOrEmpty())
-                noListAlbums.visibility = View.VISIBLE
+            if (it.isNullOrEmpty()) {
+                emptyList.visibility = View.VISIBLE
+                emptyMessage.text = getString(R.string.no_list_of_favorite_albums)
+            }
             albumAdapter.setAlbums(it)
         })
 

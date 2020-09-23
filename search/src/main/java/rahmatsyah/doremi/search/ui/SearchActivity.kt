@@ -62,8 +62,9 @@ class SearchActivity : AppCompatActivity() {
                 is Result.Success ->{
                     result.data?.let {
                         albumAdapter.setAlbums(it)
+                        if (it.isNotEmpty())
+                            showAlbumsResult(true)
                     }
-                    showAlbumsResult(true)
                 }
                 is Result.Error ->{
                     Toast.makeText(this,result.message.toString(),Toast.LENGTH_SHORT).show()
@@ -78,8 +79,9 @@ class SearchActivity : AppCompatActivity() {
                 is Result.Success ->{
                     result.data?.let {
                         artistAdapter.setArtists(it)
+                        if (it.isNotEmpty())
+                            showArtistsResult(true)
                     }
-                    showArtistsResult(true)
                 }
                 is Result.Error ->{
                     Toast.makeText(this,result.message.toString(),Toast.LENGTH_SHORT).show()
@@ -94,11 +96,12 @@ class SearchActivity : AppCompatActivity() {
                 is Result.Success ->{
                     result.data?.let {
                         trackAdapter.setTracks(it)
+                        if (it.isNotEmpty())
+                            showTracksResult(true)
                     }
                     viewModel.playedTrackPosition.observe(this, Observer {
                         trackAdapter.setPlayingOn(it)
                     })
-                    showTracksResult(true)
                 }
                 is Result.Error ->{
                     Toast.makeText(this,result.message.toString(),Toast.LENGTH_SHORT).show()
@@ -106,6 +109,13 @@ class SearchActivity : AppCompatActivity() {
                 is Result.Loading ->{
                     showTracksResult(false)
                 }
+            }
+        })
+
+        viewModel.isResultEmpty().observe(this,{
+            emptyResult.visibility = viewVisibilityState(it)
+            if (it){
+                searchProgress.visibility = View.GONE
             }
         })
 

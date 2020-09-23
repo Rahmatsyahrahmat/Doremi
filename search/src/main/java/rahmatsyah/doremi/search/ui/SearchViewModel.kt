@@ -26,6 +26,20 @@ class SearchViewModel (private val searchUseCase: SearchUseCase): ViewModel(){
         searchUseCase.searchTracks(it).asLiveData()
     }
 
+    private val isAlbumEmpty:LiveData<Boolean> = albums.map {
+        it.data.isNullOrEmpty()
+    }
+
+    private val isArtistEmpty:LiveData<Boolean> = artists.map {
+        it.data.isNullOrEmpty()
+    }
+
+    private val isTrackEmpty:LiveData<Boolean> = tracks.map {
+        it.data.isNullOrEmpty()
+    }
+
+    private val isResultEmpty:MediatorLiveData<Boolean> = MediatorLiveData<Boolean>()
+
     fun setQuery(query:String){
         this.query.value = query
     }
@@ -35,6 +49,20 @@ class SearchViewModel (private val searchUseCase: SearchUseCase): ViewModel(){
     fun getArtists() = artists
 
     fun getTracks() = tracks
+
+    fun isResultEmpty():LiveData<Boolean>{
+        isResultEmpty.value = false
+        isResultEmpty.addSource(isAlbumEmpty){
+            isResultEmpty.value = it || isResultEmpty.value?:false
+        }
+        isResultEmpty.addSource(isArtistEmpty){
+            isResultEmpty.value = it || isResultEmpty.value?:false
+        }
+        isResultEmpty.addSource(isTrackEmpty){
+            isResultEmpty.value = it || isResultEmpty.value?:false
+        }
+        return isResultEmpty
+    }
 
     fun addTrackToFavorite(track: Track){
         viewModelScope.launch {

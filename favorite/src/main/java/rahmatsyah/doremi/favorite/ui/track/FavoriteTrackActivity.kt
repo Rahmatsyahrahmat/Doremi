@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_favorite_track.*
+import kotlinx.android.synthetic.main.view_empty.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import rahmatsyah.doremi.app.ui.album.AlbumActivity
@@ -60,8 +61,10 @@ class FavoriteTrackActivity : AppCompatActivity() {
         }
 
         viewModel.getFavoriteTracks().observe(this, Observer {tracks->
-            if (tracks.isNullOrEmpty())
-                noListTracks.visibility = View.VISIBLE
+            if (tracks.isNullOrEmpty()) {
+                emptyList.visibility = View.VISIBLE
+                emptyMessage.text = getString(R.string.no_list_of_favorite_tracks)
+            }
             trackAdapter.setTracks(tracks)
             viewModel.playedTrackPosition.observe(this, Observer {
                 trackAdapter.setPlayingOn(it)
