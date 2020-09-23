@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/mainMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu"
+            android:background="@null"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/mainSearchField"
+            app:layout_constraintBottom_toBottomOf="@id/mainSearchField"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:contentDescription="@string/menu"/>
+
+        <TextView
+            android:id="@+id/mainSearchField"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/search_background"
+            android:text="@string/search_suggestion"
+            android:textColor="@color/colorFieldContent"
+            android:textSize="13sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/smallMargin"
+            app:drawableStartCompat="@drawable/ic_search"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/mainMenu"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/largeMargin"
+            android:layout_marginLeft="@dimen/largeMargin"
+            android:layout_marginRight="@dimen/largeMargin"
+            android:layout_marginBottom="@dimen/spaceMargin"/>
+
+        <TextView
+            android:id="@+id/mainTopAlbums"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_albums"
+            android:textStyle="bold"
+            android:textSize="@dimen/largeText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainSearchField"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:layout_marginStart="@dimen/largeMargin" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainTopAlbumsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/view_item_album"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainTopAlbums"
+            android:paddingLeft="@dimen/normalMargin"
+            android:paddingRight="@dimen/normalMargin"
+            android:clipToPadding="false"
+            android:layout_marginTop="@dimen/spaceMargin"/>
+
+        <TextView
+            android:id="@+id/mainTopArtists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_artists"
+            android:textStyle="bold"
+            android:textSize="@dimen/largeText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainTopAlbumsList"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:layout_marginTop="@dimen/normalMargin"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainTopArtistsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/view_item_artist"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainTopArtists"
+            android:layout_marginTop="@dimen/spaceMargin"
+            android:paddingLeft="@dimen/normalMargin"
+            android:paddingRight="@dimen/normalMargin"
+            android:clipToPadding="false"/>
+
+        <TextView
+            android:id="@+id/mainTopTracks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_tracks"
+            android:textSize="@dimen/largeText"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainTopArtistsList"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:layout_marginTop="@dimen/normalMargin"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainTopTracksList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/view_item_track"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/mainTopTracks"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="@dimen/normalMargin"
+            android:layout_marginRight="@dimen/normalMargin"
+            android:layout_marginTop="@dimen/spaceMargin"
+            android:paddingBottom="@dimen/largeMargin"
+            android:clipToPadding="false"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

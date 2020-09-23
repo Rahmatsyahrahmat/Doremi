@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Do.Re.Mi</string>
+    <string name="developed_by">Developed by</string>
+    <string name="ramatsyah">Ramatsyah</string>
+    <string name="source">Source</string>
+    <string name="deezer_logo">Deezer Logo</string>
+    <string name="logo">Logo</string>
+    <string name="status_retrieving">Retrieving Data</string>
+    <string name="album_image">Album Image</string>
+    <string name="image_shadow">Image Shadow</string>
+    <string name="artists_picture">Artists Picture</string>
+    <string name="track_picture">Track Picture</string>
+    <string name="artist_by">by %s</string>
+    <string name="in_album">Album : %s</string>
+    <string name="released_date">Released: %s</string>
+    <string name="top_albums">Top Albums</string>
+    <string name="top_artists">Top Artists</string>
+    <string name="top_tracks">Top Tracks</string>
+    <string name="player">Player</string>
+    <string name="favorite_album">favorite_album</string>
+    <string name="artist_favorite">artist_favorite</string>
+    <string name="track_favorite">track_favorite</string>
+    <string name="more">More…</string>
+    <string name="search_suggestion">Search tracks, albums, or even artists</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="tracks">Tracks</string>
+    <string name="menu">menu</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_search">Search</string>
+</resources>

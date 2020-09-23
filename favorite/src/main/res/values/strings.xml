@@ -1,0 +1,8 @@
+<resources>
+    <string name="favorite_albums">Favorite Albums</string>
+    <string name="favorite_artists">Favorite Artists</string>
+    <string name="favorite_tracks">Favorite Tracks</string>
+    <string name="no_list_of_favorite_artists">No list of favorite artists</string>
+    <string name="no_list_of_favorite_albums">No list of favorite albums</string>
+    <string name="no_list_of_favorite_tracks">No list of favorite tracks</string>
+</resources>

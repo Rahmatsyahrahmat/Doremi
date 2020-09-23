@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rahmatsyah.doremi.search.ui.SearchActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/searchField"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/search_background"
+            android:hint="@string/search_suggestion"
+            android:textColor="@color/colorFieldContent"
+            android:textSize="13sp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/smallMargin"
+            app:drawableStartCompat="@drawable/ic_search"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/largeMargin"
+            android:layout_marginLeft="@dimen/largeMargin"
+            android:layout_marginRight="@dimen/largeMargin"
+            android:layout_marginBottom="@dimen/spaceMargin"
+            android:importantForAutofill="no"
+            android:theme="@style/Theme.AppCompat.Light"
+            />
+
+        <ProgressBar
+            android:id="@+id/searchProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchField"
+            android:layout_marginTop="@dimen/spaceMargin"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/searchAlbums"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/albums"
+            android:textStyle="bold"
+            android:textSize="@dimen/largeText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchField"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchAlbumsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/view_item_album"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchAlbums"
+            android:paddingLeft="@dimen/normalMargin"
+            android:paddingRight="@dimen/normalMargin"
+            android:clipToPadding="false"
+            android:layout_marginTop="@dimen/spaceMargin"/>
+
+        <TextView
+            android:id="@+id/searchArtists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/artists"
+            android:textStyle="bold"
+            android:textSize="@dimen/largeText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchAlbumsList"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchArtistsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/view_item_artist"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchArtists"
+            android:layout_marginTop="@dimen/spaceMargin"
+            android:paddingLeft="@dimen/normalMargin"
+            android:paddingRight="@dimen/normalMargin"
+            android:clipToPadding="false"/>
+
+        <TextView
+            android:id="@+id/searchTracks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tracks"
+            android:textSize="@dimen/largeText"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchArtistsList"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchTracksList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/view_item_track"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/searchTracks"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="@dimen/normalMargin"
+            android:layout_marginRight="@dimen/normalMargin"
+            android:layout_marginTop="@dimen/spaceMargin"
+            android:paddingBottom="@dimen/largeMargin"
+            android:clipToPadding="false"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="rahmatsyah.doremi.favorite.ui.album.FavoriteAlbumActivity">
+
+    <TextView
+        android:id="@+id/noListAlbums"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_list_of_favorite_albums"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/favorite_albums"
+        android:textStyle="bold"
+        android:textSize="@dimen/largeText"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoriteAlbums"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/view_item_album"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:layout_marginRight="@dimen/largeMargin"
+        android:layout_marginLeft="@dimen/largeMargin"
+        android:paddingBottom="@dimen/largeMargin"
+        android:clipToPadding="false"/>
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="rahmatsyah.doremi.favorite">
+
+    <dist:module
+        dist:instant="false"
+        dist:title="@string/title_favorite">
+        <dist:delivery>
+            <dist:on-demand />
+        </dist:delivery>
+        <dist:fusing dist:include="true" />
+    </dist:module>
+    <application>
+        <activity android:name=".ui.album.FavoriteAlbumActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="doremiapp"
+                    android:host="favorite_album"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.artist.FavoriteArtistActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="doremiapp"
+                    android:host="favorite_artist"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.track.FavoriteTrackActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="doremiapp"
+                    android:host="favorite_track"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
