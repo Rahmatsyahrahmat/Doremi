@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -56,16 +57,18 @@ class AlbumActivity : AppCompatActivity() {
         viewModel.tracks.observe(this, Observer {result->
             when(result){
                 is Result.Success ->{
+                    tracksProgress.visibility = View.GONE
                     result.data?.let { trackAdapter.setTracks(it) }
                     viewModel.playedTrackPosition.observe(this, Observer {
                         trackAdapter.setPlayingOn(it)
                     })
                 }
                 is Result.Error ->{
+                    tracksProgress.visibility = View.GONE
                     Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
                 }
                 is Result.Loading ->{
-
+                    tracksProgress.visibility = View.VISIBLE
                 }
             }
         })

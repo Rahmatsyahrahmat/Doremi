@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             when(result){
                 is Result.Loading->{
                     if (result.data.isNullOrEmpty()){
-                        mainLoading.visibility = View.VISIBLE
+                        albumsProgress.visibility = View.VISIBLE
                     }else{
                         result.data?.let {items->
                             albumAdapter.setAlbums(items)
@@ -52,13 +52,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     }
                 }
                 is Result.Success->{
-                    mainLoading.visibility = View.GONE
+                    albumsProgress.visibility = View.INVISIBLE
                     result.data?.let { items->
                         albumAdapter.setAlbums(items)
                     }
                 }
                 is Result.Error->{
-                    mainLoading.visibility = View.GONE
+                    albumsProgress.visibility = View.INVISIBLE
                     Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
                 }
             }
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             when(result){
                 is Result.Loading->{
                     if (result.data.isNullOrEmpty()){
-                        mainLoading.visibility = View.VISIBLE
+                        artistsProgress.visibility = View.VISIBLE
                     }else{
                         result.data?.let {items->
                             artistAdapter.setArtists(items)
@@ -76,13 +76,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     }
                 }
                 is Result.Success->{
-                    mainLoading.visibility = View.GONE
+                    artistsProgress.visibility = View.INVISIBLE
                     result.data?.let { items->
                         artistAdapter.setArtists(items)
                     }
                 }
                 is Result.Error->{
-                    mainLoading.visibility = View.GONE
+                    artistsProgress.visibility = View.INVISIBLE
                     Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
                 }
             }
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             when(result){
                 is Result.Loading->{
                     if (result.data.isNullOrEmpty()){
-                        mainLoading.visibility = View.VISIBLE
+                        tracksProgress.visibility = View.VISIBLE
                     }else{
                         result.data?.let {items->
                             trackAdapter.setTracks(items)
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     }
                 }
                 is Result.Success->{
-                    mainLoading.visibility = View.GONE
+                    tracksProgress.visibility = View.GONE
                     result.data?.let { items->
                         trackAdapter.setTracks(items)
                         viewModel.playedTrackPosition.observe(this, Observer {
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     }
                 }
                 is Result.Error->{
-                    mainLoading.visibility = View.GONE
+                    tracksProgress.visibility = View.GONE
                     Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
                 }
             }

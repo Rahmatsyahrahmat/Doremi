@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:shimmer_auto_start="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/normalMargin"
+        android:paddingRight="@dimen/normalMargin"
+        android:clipToPadding="false">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/shimmer_item_track" />
+            <include layout="@layout/shimmer_item_track" />
+            <include layout="@layout/shimmer_item_track" />
+            <include layout="@layout/shimmer_item_track" />
+            <include layout="@layout/shimmer_item_track" />
+        </LinearLayout>
+    </ScrollView>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

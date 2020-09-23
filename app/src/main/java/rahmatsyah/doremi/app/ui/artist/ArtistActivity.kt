@@ -3,6 +3,7 @@ package rahmatsyah.doremi.app.ui.artist
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -64,12 +65,15 @@ class ArtistActivity : AppCompatActivity() {
         viewModel.albums.observe(this, Observer {resource->
             when(resource){
                 is Result.Loading ->{
+                    artistAlbumProgress.visibility = View.VISIBLE
                     resource.data?.let { albumAdapter.setAlbums(it) }
                 }
                 is Result.Error ->{
+                    artistAlbumProgress.visibility = View.GONE
                     Toast.makeText(this,resource.message.toString(),Toast.LENGTH_SHORT).show()
                 }
                 is Result.Success ->{
+                    artistAlbumProgress.visibility = View.GONE
                     resource.data?.let { albumAdapter.setAlbums(it) }
                 }
             }

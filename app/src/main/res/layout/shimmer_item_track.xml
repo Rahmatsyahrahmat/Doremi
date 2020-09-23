@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/colorCardBackground"
+    app:cardCornerRadius="@dimen/normalMargin"
+    android:layout_margin="@dimen/spaceMargin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/trackPicture"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:src="@color/colorAccent"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/track_picture" />
+
+        <TextView
+            android:id="@+id/trackTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:background="@color/colorField"
+            android:textColor="@color/colorField"
+            android:textSize="@dimen/largeText"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintLeft_toRightOf="@id/trackPicture"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/trackFavorite"
+            android:layout_marginStart="@dimen/normalMargin"
+            android:layout_marginEnd="@dimen/smallMargin"
+            android:layout_marginTop="@dimen/normalMargin"/>
+
+        <TextView
+            android:id="@+id/trackArtist"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorField"
+            android:textColor="@color/colorField"
+            app:layout_constraintLeft_toLeftOf="@id/trackTitle"
+            app:layout_constraintTop_toBottomOf="@id/trackTitle"/>
+
+        <ImageButton
+            android:id="@+id/trackFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_favorite_border_black"
+            android:background="@null"
+            android:foreground="@color/colorField"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/largeMargin"
+            android:layout_marginTop="@dimen/largeMargin"
+            android:contentDescription="@string/track_favorite"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/trackAlbum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallMargin"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:background="@color/colorField"
+            android:textColor="@color/colorField"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/trackTitle"
+            app:layout_constraintRight_toLeftOf="@id/trackMore"
+            app:layout_constraintTop_toBottomOf="@id/trackArtist"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/trackMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more"
+            android:background="@color/colorField"
+            android:textColor="@color/colorField"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/largeMargin"
+            android:layout_marginBottom="@dimen/largeMargin"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
