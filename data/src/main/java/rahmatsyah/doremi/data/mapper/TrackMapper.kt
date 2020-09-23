@@ -9,7 +9,7 @@ import rahmatsyah.doremi.data.sources.remote.response.TrackResponse
 import rahmatsyah.doremi.domain.entity.Track
 
 
-fun TrackResponse.toTrackEntity(isTop: Boolean = false):TrackEntity =
+fun TrackResponse.toTrackEntity(isTop: Boolean = false): TrackEntity =
     TrackEntity(
         this.id,
         this.title,
@@ -20,7 +20,7 @@ fun TrackResponse.toTrackEntity(isTop: Boolean = false):TrackEntity =
         isTop = isTop
     )
 
-fun TrackResponse.toTrackEntityWithAlbumId(albumId:Int):TrackEntity =
+fun TrackResponse.toTrackEntityWithAlbumId(albumId: Int): TrackEntity =
     TrackEntity(
         this.id,
         this.title,
@@ -30,7 +30,7 @@ fun TrackResponse.toTrackEntityWithAlbumId(albumId:Int):TrackEntity =
         albumId
     )
 
-fun TrackEntity.toTrack():Track =
+fun TrackEntity.toTrack(): Track =
     Track(
         this.id,
         this.title,
@@ -39,7 +39,7 @@ fun TrackEntity.toTrack():Track =
         isFavorite = this.isFavorite
     )
 
-fun Track.toTrackEntity():TrackEntity =
+fun Track.toTrackEntity(): TrackEntity =
     TrackEntity(
         this.id,
         this.title,
@@ -50,24 +50,23 @@ fun Track.toTrackEntity():TrackEntity =
         this.isFavorite
     )
 
-fun Flow<List<TrackEntity>>.toTrackList():Flow<List<Track>> =
+fun Flow<List<TrackEntity>>.toTrackList(): Flow<List<Track>> =
     this.map {
         it.toTrackList()
     }
 
-fun List<TrackEntity>.toTrackList():List<Track> =
+fun List<TrackEntity>.toTrackList(): List<Track> =
     this.map {
         it.toTrack()
     }
 
 
-
-fun List<TrackResponse>.toTrackEntities(isTop:Boolean = false):List<TrackEntity> =
+fun List<TrackResponse>.toTrackEntities(isTop: Boolean = false): List<TrackEntity> =
     this.map {
         it.toTrackEntity(isTop)
     }
 
-fun List<TrackResponse>.toTrackEntitiesWithAlbumId(albumId:Int):List<TrackEntity> =
+fun List<TrackResponse>.toTrackEntitiesWithAlbumId(albumId: Int): List<TrackEntity> =
     this.map {
         it.toTrackEntityWithAlbumId(albumId)
     }
@@ -77,7 +76,7 @@ fun List<TrackResponse>.getAlbumEntities(): List<AlbumEntity> =
         it.album?.toAlbumEntity()
     }
 
-fun List<TrackResponse>.getArtistEntities():List<ArtistEntity> =
+fun List<TrackResponse>.getArtistEntities(): List<ArtistEntity> =
     this.map {
         it.artist.toArtistEntity()
     }

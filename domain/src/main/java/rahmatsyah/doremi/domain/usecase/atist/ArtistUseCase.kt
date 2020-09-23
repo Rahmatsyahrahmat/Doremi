@@ -6,7 +6,7 @@ import rahmatsyah.doremi.domain.entity.Album
 import rahmatsyah.doremi.domain.entity.Artist
 
 interface ArtistUseCase {
-    fun getArtist(id:Int):Flow<Result<Artist>>
-    fun getArtistAlbums(id: Int):Flow<Result<List<Album>>>
+    fun getArtist(id: Int): Flow<Result<Artist>>
+    fun getArtistAlbums(id: Int): Flow<Result<List<Album>>>
     suspend fun addToFavorite(artist: Artist)
 }

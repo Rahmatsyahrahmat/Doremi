@@ -7,7 +7,10 @@ import rahmatsyah.doremi.domain.entity.Track
 import rahmatsyah.doremi.domain.repository.AlbumRepository
 import rahmatsyah.doremi.domain.repository.TrackRepository
 
-class AlbumUseCaseImpl(private val albumRepository: AlbumRepository,private val trackRepository: TrackRepository):AlbumUseCase {
+class AlbumUseCaseImpl(
+    private val albumRepository: AlbumRepository,
+    private val trackRepository: TrackRepository
+) : AlbumUseCase {
     override fun getAlbum(id: Int): Flow<Result<Album>> =
         albumRepository.getAlbum(id)
 

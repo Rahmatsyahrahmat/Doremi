@@ -13,11 +13,11 @@ import rahmatsyah.doremi.domain.repository.TrackRepository
 class TrackRepositoryImpl(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
-):TrackRepository {
+) : TrackRepository {
 
     override fun getTopTracks(): Flow<Result<List<Track>>> =
-        object :NetworkBoundResource<List<Track>,List<TrackResponse>>(){
-            override fun loadFromDB(): Flow<List<Track>>  =
+        object : NetworkBoundResource<List<Track>, List<TrackResponse>>() {
+            override fun loadFromDB(): Flow<List<Track>> =
                 localDataSource.getTopTracks().toTrackList()
 
             override fun shouldFetch(data: List<Track>?): Boolean =
@@ -38,7 +38,7 @@ class TrackRepositoryImpl(
         localDataSource.getFavoriteTracks().toTrackList()
 
     override fun searchTracks(query: String): Flow<Result<List<Track>>> =
-        object :NetworkBoundResource<List<Track>,List<TrackResponse>>(){
+        object : NetworkBoundResource<List<Track>, List<TrackResponse>>() {
             override fun loadFromDB(): Flow<List<Track>> =
                 localDataSource.searchTracks(query).toTrackList()
 

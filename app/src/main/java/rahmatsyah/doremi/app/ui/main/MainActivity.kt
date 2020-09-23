@@ -2,12 +2,11 @@ package rahmatsyah.doremi.app.ui.main
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -20,17 +19,17 @@ import rahmatsyah.doremi.app.ui.main.adapter.ArtistAdapter
 import rahmatsyah.doremi.app.ui.main.adapter.TrackAdapter
 import rahmatsyah.doremi.domain.common.Result
 
-class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private val viewModel:MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModel()
 
-    private val albumAdapter:AlbumAdapter by lazy {
+    private val albumAdapter: AlbumAdapter by lazy {
         AlbumAdapter(this)
     }
-    private val artistAdapter:ArtistAdapter by lazy {
+    private val artistAdapter: ArtistAdapter by lazy {
         ArtistAdapter(this)
     }
-    private val trackAdapter:TrackAdapter by lazy {
+    private val trackAdapter: TrackAdapter by lazy {
         TrackAdapter(this)
     }
 
@@ -40,77 +39,77 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         setUpView()
 
-        viewModel.topAlbums.observe(this, Observer {result->
-            when(result){
-                is Result.Loading->{
-                    if (result.data.isNullOrEmpty()){
+        viewModel.topAlbums.observe(this, { result ->
+            when (result) {
+                is Result.Loading -> {
+                    if (result.data.isNullOrEmpty()) {
                         albumsProgress.visibility = View.VISIBLE
-                    }else{
-                        result.data?.let {items->
+                    } else {
+                        result.data?.let { items ->
                             albumAdapter.setAlbums(items)
                         }
                     }
                 }
-                is Result.Success->{
+                is Result.Success -> {
                     albumsProgress.visibility = View.INVISIBLE
-                    result.data?.let { items->
+                    result.data?.let { items ->
                         albumAdapter.setAlbums(items)
                     }
                 }
-                is Result.Error->{
+                is Result.Error -> {
                     albumsProgress.visibility = View.INVISIBLE
-                    Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_LONG).show()
                 }
             }
         })
 
-        viewModel.topArtists.observe(this, Observer {result->
-            when(result){
-                is Result.Loading->{
-                    if (result.data.isNullOrEmpty()){
+        viewModel.topArtists.observe(this, { result ->
+            when (result) {
+                is Result.Loading -> {
+                    if (result.data.isNullOrEmpty()) {
                         artistsProgress.visibility = View.VISIBLE
-                    }else{
-                        result.data?.let {items->
+                    } else {
+                        result.data?.let { items ->
                             artistAdapter.setArtists(items)
                         }
                     }
                 }
-                is Result.Success->{
+                is Result.Success -> {
                     artistsProgress.visibility = View.INVISIBLE
-                    result.data?.let { items->
+                    result.data?.let { items ->
                         artistAdapter.setArtists(items)
                     }
                 }
-                is Result.Error->{
+                is Result.Error -> {
                     artistsProgress.visibility = View.INVISIBLE
-                    Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_LONG).show()
                 }
             }
         })
 
-        viewModel.topTracks.observe(this, Observer {result->
-            when(result){
-                is Result.Loading->{
-                    if (result.data.isNullOrEmpty()){
+        viewModel.topTracks.observe(this, { result ->
+            when (result) {
+                is Result.Loading -> {
+                    if (result.data.isNullOrEmpty()) {
                         tracksProgress.visibility = View.VISIBLE
-                    }else{
-                        result.data?.let {items->
+                    } else {
+                        result.data?.let { items ->
                             trackAdapter.setTracks(items)
                         }
                     }
                 }
-                is Result.Success->{
+                is Result.Success -> {
                     tracksProgress.visibility = View.GONE
-                    result.data?.let { items->
+                    result.data?.let { items ->
                         trackAdapter.setTracks(items)
-                        viewModel.playedTrackPosition.observe(this, Observer {
+                        viewModel.playedTrackPosition.observe(this, {
                             trackAdapter.setPlayingOn(it)
                         })
                     }
                 }
-                is Result.Error->{
+                is Result.Error -> {
                     tracksProgress.visibility = View.GONE
-                    Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_LONG).show()
                 }
             }
         })
@@ -134,18 +133,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
 
         trackAdapter.setOnItemPlayListener { track, position ->
-            if (track.isPlaying){
+            if (track.isPlaying) {
                 viewModel.stopMediaPlayer()
                 trackAdapter.stop(position)
-            }else {
+            } else {
                 trackAdapter.play(position)
                 viewModel.playMediaPalyer(track, position)
             }
         }
 
         trackAdapter.setOnItemClickListener {
-            val intent = Intent(this,AlbumActivity::class.java)
-            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS,it)
+            val intent = Intent(this, AlbumActivity::class.java)
+            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS, it)
             startActivity(intent)
         }
 
@@ -160,37 +159,37 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
 
         albumAdapter.setOnItemClickListener {
-            val intent = Intent(this,AlbumActivity::class.java)
-            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS,it)
+            val intent = Intent(this, AlbumActivity::class.java)
+            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS, it)
             startActivity(intent)
         }
 
         artistAdapter.setOnItemClickListener {
-            val intent = Intent(this,ArtistActivity::class.java)
-            intent.putExtra(ArtistActivity.ARTIST_ID_EXTRAS,it)
+            val intent = Intent(this, ArtistActivity::class.java)
+            intent.putExtra(ArtistActivity.ARTIST_ID_EXTRAS, it)
             startActivity(intent)
         }
     }
 
-    override fun startActivity(intent: Intent){
-        if (viewModel.isPlaying()){
+    override fun startActivity(intent: Intent) {
+        if (viewModel.isPlaying()) {
             viewModel.stopMediaPlayer()
         }
         super.startActivity(intent)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.menuHome ->{
+        when (item.itemId) {
+            R.id.menuHome -> {
                 mainDrawerLayout.closeDrawer(mainNavView)
             }
-            R.id.menuFavoriteAlbum ->{
-                startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("doremiapp://favorite_album")))
+            R.id.menuFavoriteAlbum -> {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("doremiapp://favorite_album")))
             }
-            R.id.menuFavoriteArtist ->{
+            R.id.menuFavoriteArtist -> {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("doremiapp://favorite_artist")))
             }
-            R.id.menuFavoriteTrack ->{
+            R.id.menuFavoriteTrack -> {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("doremiapp://favorite_track")))
             }
         }
@@ -198,9 +197,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     override fun onBackPressed() {
-        if (mainDrawerLayout.isDrawerOpen(mainNavView)){
+        if (mainDrawerLayout.isDrawerOpen(mainNavView)) {
             mainDrawerLayout.closeDrawer(mainNavView)
-        }else{
+        } else {
             super.onBackPressed()
         }
     }

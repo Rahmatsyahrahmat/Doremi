@@ -12,7 +12,7 @@ import rahmatsyah.doremi.data.di.networkModule
 import rahmatsyah.doremi.data.di.repositoryModule
 
 
-class DoremiApp : Application(){
+class DoremiApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {

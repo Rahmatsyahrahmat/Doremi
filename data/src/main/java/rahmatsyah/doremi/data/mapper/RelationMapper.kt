@@ -7,26 +7,26 @@ import rahmatsyah.doremi.data.sources.local.relation.TrackAndAlbumAndArtist
 import rahmatsyah.doremi.domain.entity.Album
 import rahmatsyah.doremi.domain.entity.Track
 
-fun List<AlbumAndArtist>.toAlbumList():List<Album> =
+fun List<AlbumAndArtist>.toAlbumList(): List<Album> =
     this.map {
         val result = it.album.toAlbum()
         result.artist = it.artist?.toArtist()
         result
     }
 
-fun Flow<List<AlbumAndArtist>>.toAlbumList():Flow<List<Album>> =
+fun Flow<List<AlbumAndArtist>>.toAlbumList(): Flow<List<Album>> =
     this.map {
         it.toAlbumList()
     }
 
-fun Flow<AlbumAndArtist>.toAlbum():Flow<Album> =
+fun Flow<AlbumAndArtist>.toAlbum(): Flow<Album> =
     this.map {
         val result = it.album.toAlbum()
         result.artist = it.artist?.toArtist()
         result
     }
 
-fun TrackAndAlbumAndArtist.toTrack():Track {
+fun TrackAndAlbumAndArtist.toTrack(): Track {
     val result = this.track.toTrack()
     result.album = this.album?.toAlbum()
     result.artist = this.artist?.toArtist()
@@ -38,7 +38,7 @@ fun Flow<List<TrackAndAlbumAndArtist>>.toTrackList(): Flow<List<Track>> =
         it.toTrackList()
     }
 
-fun List<TrackAndAlbumAndArtist>.toTrackList():List<Track> =
+fun List<TrackAndAlbumAndArtist>.toTrackList(): List<Track> =
     this.map {
         it.toTrack()
     }

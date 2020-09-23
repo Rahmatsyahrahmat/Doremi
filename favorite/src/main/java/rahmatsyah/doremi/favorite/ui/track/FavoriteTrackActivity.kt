@@ -2,10 +2,9 @@ package rahmatsyah.doremi.favorite.ui.track
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_favorite_track.*
 import kotlinx.android.synthetic.main.view_empty.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -17,9 +16,9 @@ import rahmatsyah.doremi.favorite.di.favoriteViewModelModule
 
 class FavoriteTrackActivity : AppCompatActivity() {
 
-    private val viewModel:FavoriteTrackViewModel by viewModel()
+    private val viewModel: FavoriteTrackViewModel by viewModel()
 
-    private val trackAdapter:TrackAdapter by lazy {
+    private val trackAdapter: TrackAdapter by lazy {
         TrackAdapter(this)
     }
 
@@ -41,32 +40,32 @@ class FavoriteTrackActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        trackAdapter.setOnItemPlayListener{track, position ->
-            if (track.isPlaying){
+        trackAdapter.setOnItemPlayListener { track, position ->
+            if (track.isPlaying) {
                 viewModel.stopMediaPlayer()
                 trackAdapter.stop(position)
-            }else {
+            } else {
                 trackAdapter.play(position)
                 viewModel.playMediaPalyer(track, position)
             }
         }
 
         trackAdapter.setOnItemClickListener {
-            if (viewModel.isPlaying()){
+            if (viewModel.isPlaying()) {
                 viewModel.stopMediaPlayer()
             }
             val intent = Intent(this, AlbumActivity::class.java)
-            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS,it)
+            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS, it)
             startActivity(intent)
         }
 
-        viewModel.getFavoriteTracks().observe(this, Observer {tracks->
+        viewModel.getFavoriteTracks().observe(this, { tracks ->
             if (tracks.isNullOrEmpty()) {
                 emptyList.visibility = View.VISIBLE
                 emptyMessage.text = getString(R.string.no_list_of_favorite_tracks)
             }
             trackAdapter.setTracks(tracks)
-            viewModel.playedTrackPosition.observe(this, Observer {
+            viewModel.playedTrackPosition.observe(this, {
                 trackAdapter.setPlayingOn(it)
             })
         })

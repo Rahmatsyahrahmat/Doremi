@@ -28,6 +28,4 @@
     <string name="artists">Artists</string>
     <string name="tracks">Tracks</string>
     <string name="menu">menu</string>
-    <string name="title_favorite">Favorite</string>
-    <string name="title_search">Search</string>
 </resources>

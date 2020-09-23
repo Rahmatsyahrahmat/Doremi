@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.DiffUtil
 import rahmatsyah.doremi.domain.entity.Track
 
 
-class TrackDiffCallback (private val oldItem:List<Track>, private val newItem:List<Track>):
-    DiffUtil.Callback(){
+class TrackDiffCallback(private val oldItem: List<Track>, private val newItem: List<Track>) :
+    DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldItem[oldItemPosition].id == newItem[newItemPosition].id
 

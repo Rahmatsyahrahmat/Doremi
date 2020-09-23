@@ -1,14 +1,11 @@
 package rahmatsyah.doremi.data.mapper
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import rahmatsyah.doremi.data.sources.local.album.AlbumEntity
 import rahmatsyah.doremi.data.sources.local.artist.ArtistEntity
-import rahmatsyah.doremi.data.sources.local.relation.AlbumAndArtist
 import rahmatsyah.doremi.data.sources.remote.response.AlbumResponse
 import rahmatsyah.doremi.domain.entity.Album
 
-fun Album.toAlbumEntity():AlbumEntity =
+fun Album.toAlbumEntity(): AlbumEntity =
     AlbumEntity(
         this.id,
         this.title,
@@ -18,7 +15,7 @@ fun Album.toAlbumEntity():AlbumEntity =
         this.isFavorite
     )
 
-fun AlbumResponse.toAlbumEntity(isTop:Boolean = false):AlbumEntity =
+fun AlbumResponse.toAlbumEntity(isTop: Boolean = false): AlbumEntity =
     AlbumEntity(
         this.id,
         this.title,
@@ -28,7 +25,7 @@ fun AlbumResponse.toAlbumEntity(isTop:Boolean = false):AlbumEntity =
         isTop = isTop
     )
 
-fun AlbumResponse.toAlbumEntityWithArtistId(artistId: Int):AlbumEntity =
+fun AlbumResponse.toAlbumEntityWithArtistId(artistId: Int): AlbumEntity =
     AlbumEntity(
         this.id,
         this.title,
@@ -37,7 +34,7 @@ fun AlbumResponse.toAlbumEntityWithArtistId(artistId: Int):AlbumEntity =
         artistId
     )
 
-fun AlbumEntity.toAlbum():Album =
+fun AlbumEntity.toAlbum(): Album =
     Album(
         this.id,
         this.title,
@@ -46,17 +43,17 @@ fun AlbumEntity.toAlbum():Album =
         isFavorite = this.isFavorite
     )
 
-fun List<AlbumResponse>.toAlbumEntities(isTop: Boolean = false):List<AlbumEntity> =
+fun List<AlbumResponse>.toAlbumEntities(isTop: Boolean = false): List<AlbumEntity> =
     this.map {
         it.toAlbumEntity(isTop)
     }
 
-fun List<AlbumResponse>.toAlbumEntitiesWithArtistId(artistId:Int):List<AlbumEntity> =
+fun List<AlbumResponse>.toAlbumEntitiesWithArtistId(artistId: Int): List<AlbumEntity> =
     this.map {
         it.toAlbumEntityWithArtistId(artistId)
     }
 
-fun List<AlbumResponse>.getArtistEntities():List<ArtistEntity> =
+fun List<AlbumResponse>.getArtistEntities(): List<ArtistEntity> =
     this.mapNotNull {
         it.artist?.toArtistEntity()
     }

@@ -7,25 +7,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.view_item_album_track.view.trackFavorite
-import kotlinx.android.synthetic.main.view_item_album_track.view.trackMore
-import kotlinx.android.synthetic.main.view_item_album_track.view.trackPlayer
-import kotlinx.android.synthetic.main.view_item_album_track.view.trackTitle
+import kotlinx.android.synthetic.main.view_item_album_track.view.*
 import rahmatsyah.doremi.app.R
-import rahmatsyah.doremi.app.utils.listener.AdapterTrackItemListener
 import rahmatsyah.doremi.app.utils.diff.TrackDiffCallback
+import rahmatsyah.doremi.app.utils.listener.AdapterTrackItemListener
 import rahmatsyah.doremi.domain.entity.Track
 
-class AlbumTrackAdapter (private val context: Context):RecyclerView.Adapter<AlbumTrackAdapter.ViewHolder>(){
+class AlbumTrackAdapter(private val context: Context) :
+    RecyclerView.Adapter<AlbumTrackAdapter.ViewHolder>() {
 
-    private val tracks:ArrayList<Track> = ArrayList()
+    private val tracks: ArrayList<Track> = ArrayList()
     private var playingOn = -1
 
     private var onItemPlay: AdapterTrackItemListener.OnItemPlayListener? = null
     private var onItemAddToFavorite: AdapterTrackItemListener.OnItemAddToFavoriteListener? = null
-    private var onItemMoreClickListener:AdapterTrackItemListener.OnItemListenMoreClickListener? = null
+    private var onItemMoreClickListener: AdapterTrackItemListener.OnItemListenMoreClickListener? =
+        null
 
-    fun setTracks(tracks:List<Track>){
+    fun setTracks(tracks: List<Track>) {
         val diffCalback = TrackDiffCallback(
             this.tracks,
             tracks
@@ -36,17 +35,17 @@ class AlbumTrackAdapter (private val context: Context):RecyclerView.Adapter<Albu
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun setOnItemPlayListener(play:(track:Track,position:Int)->Unit){
+    fun setOnItemPlayListener(play: (track: Track, position: Int) -> Unit) {
         onItemPlay = object : AdapterTrackItemListener.OnItemPlayListener {
             override fun onItemPlay(track: Track, position: Int) {
-                play(track,position)
+                play(track, position)
             }
 
         }
     }
 
-    fun setOnItemAddToFavoriteListener(item:(track:Track)->Unit){
-        onItemAddToFavorite = object : AdapterTrackItemListener.OnItemAddToFavoriteListener{
+    fun setOnItemAddToFavoriteListener(item: (track: Track) -> Unit) {
+        onItemAddToFavorite = object : AdapterTrackItemListener.OnItemAddToFavoriteListener {
             override fun onItemAddToFavorite(track: Track) {
                 item(track)
             }
@@ -54,8 +53,8 @@ class AlbumTrackAdapter (private val context: Context):RecyclerView.Adapter<Albu
         }
     }
 
-    fun setOnItemListenMoreClickListener(link:(link:String)->Unit){
-        onItemMoreClickListener = object: AdapterTrackItemListener.OnItemListenMoreClickListener{
+    fun setOnItemListenMoreClickListener(link: (link: String) -> Unit) {
+        onItemMoreClickListener = object : AdapterTrackItemListener.OnItemListenMoreClickListener {
             override fun onItemListenMoreClick(link: String) {
                 link(link)
             }
@@ -63,22 +62,22 @@ class AlbumTrackAdapter (private val context: Context):RecyclerView.Adapter<Albu
         }
     }
 
-    fun setPlayingOn(position: Int){
-        if (position<0){
-            if (playingOn>=0){
+    fun setPlayingOn(position: Int) {
+        if (position < 0) {
+            if (playingOn >= 0) {
                 stop(playingOn)
                 playingOn = position
             }
-        }else{
+        } else {
             play(position)
         }
     }
 
-    fun play(position: Int){
-        if (position<0){
+    fun play(position: Int) {
+        if (position < 0) {
             return
         }
-        if (playingOn>=0){
+        if (playingOn >= 0) {
             tracks[playingOn].isPlaying = false
             notifyItemChanged(playingOn)
         }
@@ -87,22 +86,24 @@ class AlbumTrackAdapter (private val context: Context):RecyclerView.Adapter<Albu
         notifyItemChanged(position)
     }
 
-    fun stop(position: Int){
+    fun stop(position: Int) {
         playingOn = -1
         tracks[position].isPlaying = false
         notifyItemChanged(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(LayoutInflater.from(context).inflate(R.layout.view_item_album_track,parent,false))
+        ViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.view_item_album_track, parent, false)
+        )
 
-    override fun getItemCount(): Int  = tracks.size
+    override fun getItemCount(): Int = tracks.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(tracks[position])
 
         holder.itemView.trackPlayer.setOnClickListener {
-            onItemPlay?.onItemPlay(tracks[position],position)
+            onItemPlay?.onItemPlay(tracks[position], position)
         }
         holder.itemView.trackFavorite.setOnClickListener {
             onItemAddToFavorite?.onItemAddToFavorite(tracks[position])
@@ -112,18 +113,20 @@ class AlbumTrackAdapter (private val context: Context):RecyclerView.Adapter<Albu
         }
     }
 
-    inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
-        fun bind(track: Track){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(track: Track) {
             itemView.trackTitle.text = track.title
-            if (track.isPlaying){
+            if (track.isPlaying) {
                 Glide.with(itemView.context).load(R.drawable.ic_pause).into(itemView.trackPlayer)
-            }else{
+            } else {
                 Glide.with(itemView.context).load(R.drawable.ic_play).into(itemView.trackPlayer)
             }
-            if (track.isFavorite){
-                Glide.with(itemView.context).load(R.drawable.ic_favorite_red).into(itemView.trackFavorite)
-            }else{
-                Glide.with(itemView.context).load(R.drawable.ic_favorite_border_black).into(itemView.trackFavorite)
+            if (track.isFavorite) {
+                Glide.with(itemView.context).load(R.drawable.ic_favorite_red)
+                    .into(itemView.trackFavorite)
+            } else {
+                Glide.with(itemView.context).load(R.drawable.ic_favorite_border_black)
+                    .into(itemView.trackFavorite)
             }
         }
     }

@@ -1,6 +1,9 @@
 package rahmatsyah.doremi.data.sources.remote.network
 
-import rahmatsyah.doremi.data.sources.remote.response.*
+import rahmatsyah.doremi.data.sources.remote.response.AlbumResponse
+import rahmatsyah.doremi.data.sources.remote.response.ArtistResponse
+import rahmatsyah.doremi.data.sources.remote.response.ListResponse
+import rahmatsyah.doremi.data.sources.remote.response.TrackResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -8,32 +11,32 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("chart/0/albums")
-    suspend fun getTopAlbums():ListResponse<AlbumResponse>
+    suspend fun getTopAlbums(): ListResponse<AlbumResponse>
 
     @GET("chart/0/artists")
-    suspend fun getTopArtists():ListResponse<ArtistResponse>
+    suspend fun getTopArtists(): ListResponse<ArtistResponse>
 
     @GET("chart/0/tracks")
-    suspend fun getTopTracks():ListResponse<TrackResponse>
+    suspend fun getTopTracks(): ListResponse<TrackResponse>
 
     @GET("album/{id}")
-    suspend fun getAlbum(@Path("id") id:Int):AlbumResponse
+    suspend fun getAlbum(@Path("id") id: Int): AlbumResponse
 
     @GET("album/{id}/tracks")
-    suspend fun getAlbumTracks(@Path("id") id:Int):ListResponse<TrackResponse>
+    suspend fun getAlbumTracks(@Path("id") id: Int): ListResponse<TrackResponse>
 
     @GET("artist/{id}")
-    suspend fun getArtist(@Path("id") id:Int):ArtistResponse
+    suspend fun getArtist(@Path("id") id: Int): ArtistResponse
 
     @GET("artist/{id}/albums")
-    suspend fun getArtistAlbums(@Path("id") id:Int):ListResponse<AlbumResponse>
+    suspend fun getArtistAlbums(@Path("id") id: Int): ListResponse<AlbumResponse>
 
     @GET("search/album")
-    suspend fun searchAlbums(@Query("q") query:String):ListResponse<AlbumResponse>
+    suspend fun searchAlbums(@Query("q") query: String): ListResponse<AlbumResponse>
 
     @GET("search/artist")
-    suspend fun searchArtists(@Query("q") query:String):ListResponse<ArtistResponse>
+    suspend fun searchArtists(@Query("q") query: String): ListResponse<ArtistResponse>
 
     @GET("search/track")
-    suspend fun searchTracks(@Query("q") query:String):ListResponse<TrackResponse>
+    suspend fun searchTracks(@Query("q") query: String): ListResponse<TrackResponse>
 }

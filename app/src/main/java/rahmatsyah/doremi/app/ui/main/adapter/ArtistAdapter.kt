@@ -9,17 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.view_item_artist.view.*
 import rahmatsyah.doremi.app.R
-import rahmatsyah.doremi.app.utils.listener.AdapterItemListener
 import rahmatsyah.doremi.app.utils.diff.ArtistDiffCalback
+import rahmatsyah.doremi.app.utils.listener.AdapterItemListener
 import rahmatsyah.doremi.domain.entity.Artist
 
-class ArtistAdapter (private val context: Context): RecyclerView.Adapter<ArtistAdapter.ViewHolder>(){
+class ArtistAdapter(private val context: Context) :
+    RecyclerView.Adapter<ArtistAdapter.ViewHolder>() {
 
-    private val artists:ArrayList<Artist> = arrayListOf()
+    private val artists: ArrayList<Artist> = arrayListOf()
     private var onItemClickListener: AdapterItemListener.OnItemClickListener? = null
 
-    fun setOnItemClickListener(click:(id:Int)->Unit){
-        onItemClickListener = object :AdapterItemListener.OnItemClickListener{
+    fun setOnItemClickListener(click: (id: Int) -> Unit) {
+        onItemClickListener = object : AdapterItemListener.OnItemClickListener {
             override fun onItemClick(itemId: Int) {
                 click(itemId)
             }
@@ -27,7 +28,7 @@ class ArtistAdapter (private val context: Context): RecyclerView.Adapter<ArtistA
         }
     }
 
-    fun setArtists(artists:List<Artist>){
+    fun setArtists(artists: List<Artist>) {
         val diffCallback = ArtistDiffCalback(
             this.artists,
             artists
@@ -39,7 +40,7 @@ class ArtistAdapter (private val context: Context): RecyclerView.Adapter<ArtistA
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(LayoutInflater.from(context).inflate(R.layout.view_item_artist,parent,false))
+        ViewHolder(LayoutInflater.from(context).inflate(R.layout.view_item_artist, parent, false))
 
     override fun getItemCount(): Int = artists.size
 
@@ -50,8 +51,8 @@ class ArtistAdapter (private val context: Context): RecyclerView.Adapter<ArtistA
         }
     }
 
-    inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
-        fun bind(artist: Artist){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(artist: Artist) {
             Glide.with(itemView.context).load(artist.picture).into(itemView.artistsPicture)
             itemView.artistsName.text = artist.name
         }

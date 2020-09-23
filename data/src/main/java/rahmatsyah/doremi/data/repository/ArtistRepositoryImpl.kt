@@ -15,14 +15,14 @@ import rahmatsyah.doremi.domain.repository.ArtistRepository
 class ArtistRepositoryImpl(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
-):ArtistRepository {
-    override fun getArtist(id: Int): Flow<Result<Artist>>  =
-        object : NetworkBoundResource<Artist,ArtistResponse>(){
+) : ArtistRepository {
+    override fun getArtist(id: Int): Flow<Result<Artist>> =
+        object : NetworkBoundResource<Artist, ArtistResponse>() {
             override fun loadFromDB(): Flow<Artist> =
                 localDataSource.getArtist(id).toArtist()
 
             override fun shouldFetch(data: Artist?): Boolean =
-                data==null
+                data == null
 
             override suspend fun createCall(): Flow<ApiResponse<ArtistResponse>> =
                 remoteDataSource.getArtist(id)
@@ -34,7 +34,7 @@ class ArtistRepositoryImpl(
         }.asFlow()
 
     override fun getArtistAlbums(id: Int): Flow<Result<List<Album>>> =
-        object :NetworkBoundResource<List<Album>,List<AlbumResponse>>(){
+        object : NetworkBoundResource<List<Album>, List<AlbumResponse>>() {
             override fun loadFromDB(): Flow<List<Album>> =
                 localDataSource.getArtistAlbums(id).toAlbumList()
 
@@ -51,8 +51,8 @@ class ArtistRepositoryImpl(
         }.asFlow()
 
     override fun getTopArtists(): Flow<Result<List<Artist>>> =
-        object :NetworkBoundResource<List<Artist>,List<ArtistResponse>>(){
-            override fun loadFromDB(): Flow<List<Artist>>  =
+        object : NetworkBoundResource<List<Artist>, List<ArtistResponse>>() {
+            override fun loadFromDB(): Flow<List<Artist>> =
                 localDataSource.getTopArtists().toArtistList()
 
             override fun shouldFetch(data: List<Artist>?): Boolean =
@@ -71,7 +71,7 @@ class ArtistRepositoryImpl(
         localDataSource.getFavoriteArtists().toArtistList()
 
     override fun searchArtists(query: String): Flow<Result<List<Artist>>> =
-        object :NetworkBoundResource<List<Artist>,List<ArtistResponse>>(){
+        object : NetworkBoundResource<List<Artist>, List<ArtistResponse>>() {
             override fun loadFromDB(): Flow<List<Artist>> =
                 localDataSource.searchArtists(query).toArtistList()
 

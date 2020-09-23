@@ -7,22 +7,22 @@ import rahmatsyah.doremi.domain.entity.Album
 import rahmatsyah.doremi.domain.entity.Artist
 import rahmatsyah.doremi.domain.usecase.atist.ArtistUseCase
 
-class ArtistViewModel (private val artistUseCase: ArtistUseCase):ViewModel(){
-    private val artistId:MutableLiveData<Int> = MutableLiveData()
+class ArtistViewModel(private val artistUseCase: ArtistUseCase) : ViewModel() {
+    private val artistId: MutableLiveData<Int> = MutableLiveData()
 
-    val artist:LiveData<Result<Artist>> = artistId.switchMap {
+    val artist: LiveData<Result<Artist>> = artistId.switchMap {
         artistUseCase.getArtist(it).asLiveData()
     }
 
-    val albums:LiveData<Result<List<Album>>> = artistId.switchMap {
+    val albums: LiveData<Result<List<Album>>> = artistId.switchMap {
         artistUseCase.getArtistAlbums(it).asLiveData()
     }
 
-    fun setArtistId(artistId:Int){
+    fun setArtistId(artistId: Int) {
         this.artistId.value = artistId
     }
 
-    fun addToFavorite(){
+    fun addToFavorite() {
         viewModelScope.launch {
             artist.value?.data?.let { artistUseCase.addToFavorite(it) }
         }

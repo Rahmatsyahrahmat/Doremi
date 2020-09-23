@@ -6,7 +6,7 @@ import rahmatsyah.doremi.domain.entity.Album
 import rahmatsyah.doremi.domain.entity.Artist
 import rahmatsyah.doremi.domain.repository.ArtistRepository
 
-class ArtistUseCaseImpl(private val artistRepository: ArtistRepository):ArtistUseCase{
+class ArtistUseCaseImpl(private val artistRepository: ArtistRepository) : ArtistUseCase {
     override fun getArtist(id: Int): Flow<Result<Artist>> =
         artistRepository.getArtist(id)
 

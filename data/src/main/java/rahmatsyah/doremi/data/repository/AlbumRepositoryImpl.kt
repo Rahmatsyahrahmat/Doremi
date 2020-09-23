@@ -15,13 +15,13 @@ import rahmatsyah.doremi.domain.repository.AlbumRepository
 class AlbumRepositoryImpl(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
-) :AlbumRepository{
+) : AlbumRepository {
     override fun getAlbum(id: Int): Flow<Result<Album>> =
-        object :NetworkBoundResource<Album,AlbumResponse>(){
+        object : NetworkBoundResource<Album, AlbumResponse>() {
             override fun loadFromDB(): Flow<Album> =
                 localDataSource.getAlbum(id).toAlbum()
 
-            override fun shouldFetch(data: Album?): Boolean  =
+            override fun shouldFetch(data: Album?): Boolean =
                 data == null || data.releaseDate.isNullOrBlank()
 
             override suspend fun createCall(): Flow<ApiResponse<AlbumResponse>> =
@@ -35,14 +35,14 @@ class AlbumRepositoryImpl(
         }.asFlow()
 
     override fun getAlbumTracks(id: Int): Flow<Result<List<Track>>> =
-        object :NetworkBoundResource<List<Track>,List<TrackResponse>>(){
+        object : NetworkBoundResource<List<Track>, List<TrackResponse>>() {
             override fun loadFromDB(): Flow<List<Track>> =
                 localDataSource.getAlbumTracks(id).toTrackList()
 
             override fun shouldFetch(data: List<Track>?): Boolean =
                 true
 
-            override suspend fun createCall(): Flow<ApiResponse<List<TrackResponse>>>  =
+            override suspend fun createCall(): Flow<ApiResponse<List<TrackResponse>>> =
                 remoteDataSource.getAlbumTracks(id)
 
             override suspend fun saveCallResult(data: List<TrackResponse>) {
@@ -52,7 +52,7 @@ class AlbumRepositoryImpl(
         }.asFlow()
 
     override fun getTopAlbums(): Flow<Result<List<Album>>> =
-        object :NetworkBoundResource<List<Album>,List<AlbumResponse>>(){
+        object : NetworkBoundResource<List<Album>, List<AlbumResponse>>() {
             override fun loadFromDB(): Flow<List<Album>> =
                 localDataSource.getTopAlbums().toAlbumList()
 
@@ -73,7 +73,7 @@ class AlbumRepositoryImpl(
         localDataSource.getFavoriteAlbums().toAlbumList()
 
     override fun searchAlbums(query: String): Flow<Result<List<Album>>> =
-        object :NetworkBoundResource<List<Album>,List<AlbumResponse>>(){
+        object : NetworkBoundResource<List<Album>, List<AlbumResponse>>() {
             override fun loadFromDB(): Flow<List<Album>> =
                 localDataSource.searchAlbums(query).toAlbumList()
 

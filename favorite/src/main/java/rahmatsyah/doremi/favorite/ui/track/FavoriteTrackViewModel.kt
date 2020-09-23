@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import rahmatsyah.doremi.domain.entity.Track
 import rahmatsyah.doremi.domain.usecase.favorite.track.FavoriteTrackUseCase
 
-class FavoriteTrackViewModel (private val favoriteTrackUseCase: FavoriteTrackUseCase): ViewModel(){
+class FavoriteTrackViewModel(private val favoriteTrackUseCase: FavoriteTrackUseCase) : ViewModel() {
 
     private val mediaPlayer = MediaPlayer()
     val playedTrackPosition: MutableLiveData<Int> = MutableLiveData()
@@ -15,14 +15,16 @@ class FavoriteTrackViewModel (private val favoriteTrackUseCase: FavoriteTrackUse
         playedTrackPosition.value = -1
     }
 
-    fun getFavoriteTracks(): LiveData<List<Track>> = favoriteTrackUseCase.getFavoriteTracks().asLiveData()
-    fun addToFavorite(track: Track){
+    fun getFavoriteTracks(): LiveData<List<Track>> =
+        favoriteTrackUseCase.getFavoriteTracks().asLiveData()
+
+    fun addToFavorite(track: Track) {
         viewModelScope.launch {
             favoriteTrackUseCase.addToFavorite(track)
         }
     }
 
-    fun playMediaPalyer(track: Track,position:Int){
+    fun playMediaPalyer(track: Track, position: Int) {
         playedTrackPosition.value = position
         mediaPlayer.stop()
         mediaPlayer.reset()
@@ -38,7 +40,7 @@ class FavoriteTrackViewModel (private val favoriteTrackUseCase: FavoriteTrackUse
         }
     }
 
-    fun stopMediaPlayer(){
+    fun stopMediaPlayer() {
         playedTrackPosition.value = -1
         mediaPlayer.stop()
     }

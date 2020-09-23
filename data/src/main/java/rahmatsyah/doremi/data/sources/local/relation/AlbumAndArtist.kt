@@ -7,10 +7,10 @@ import rahmatsyah.doremi.data.sources.local.artist.ArtistEntity
 
 data class AlbumAndArtist(
     @Embedded
-    val album:AlbumEntity,
+    val album: AlbumEntity,
     @Relation(
         parentColumn = "artistId",
         entityColumn = "id"
     )
-    val artist:ArtistEntity?
+    val artist: ArtistEntity?
 )

@@ -2,11 +2,10 @@ package rahmatsyah.doremi.app.ui.album
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_album.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -21,9 +20,9 @@ class AlbumActivity : AppCompatActivity() {
         const val ALBUM_ID_EXTRAS = "album_id_extras"
     }
 
-    private val viewModel:AlbumViewModel by viewModel()
+    private val viewModel: AlbumViewModel by viewModel()
 
-    private val trackAdapter:AlbumTrackAdapter by lazy {
+    private val trackAdapter: AlbumTrackAdapter by lazy {
         AlbumTrackAdapter(this)
     }
 
@@ -33,41 +32,41 @@ class AlbumActivity : AppCompatActivity() {
 
         setUpView()
 
-        val albumId = intent.getIntExtra(ALBUM_ID_EXTRAS,0)
+        val albumId = intent.getIntExtra(ALBUM_ID_EXTRAS, 0)
         viewModel.setAlbumId(albumId)
 
-        viewModel.album.observe(this, Observer {result->
-            when(result){
-                is Result.Success ->{
-                    result.data?.let { album->
+        viewModel.album.observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
+                    result.data?.let { album ->
                         initAlbum(album)
                     }
                 }
-                is Result.Error ->{
-                    Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
+                is Result.Error -> {
+                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_LONG).show()
                 }
-                is Result.Loading ->{
-                    result.data?.let {album->
+                is Result.Loading -> {
+                    result.data?.let { album ->
                         initAlbum(album)
                     }
                 }
             }
         })
 
-        viewModel.tracks.observe(this, Observer {result->
-            when(result){
-                is Result.Success ->{
+        viewModel.tracks.observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
                     tracksProgress.visibility = View.GONE
                     result.data?.let { trackAdapter.setTracks(it) }
-                    viewModel.playedTrackPosition.observe(this, Observer {
+                    viewModel.playedTrackPosition.observe(this, {
                         trackAdapter.setPlayingOn(it)
                     })
                 }
-                is Result.Error ->{
+                is Result.Error -> {
                     tracksProgress.visibility = View.GONE
-                    Toast.makeText(this,result.message.toString(),Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_LONG).show()
                 }
-                is Result.Loading ->{
+                is Result.Loading -> {
                     tracksProgress.visibility = View.VISIBLE
                 }
             }
@@ -88,11 +87,11 @@ class AlbumActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        trackAdapter.setOnItemPlayListener{track, position ->
-            if (track.isPlaying){
+        trackAdapter.setOnItemPlayListener { track, position ->
+            if (track.isPlaying) {
                 viewModel.stopMediaPlayer()
                 trackAdapter.stop(position)
-            }else {
+            } else {
                 trackAdapter.play(position)
                 viewModel.playMediaPalyer(track, position)
             }
@@ -103,19 +102,20 @@ class AlbumActivity : AppCompatActivity() {
         }
     }
 
-    private fun initAlbum(album:Album){
+    private fun initAlbum(album: Album) {
         Glide.with(this).load(album.cover).into(albumCover)
         albumName.text = album.title
-        albumReleasedDate.text = resources.getString(R.string.released_date,album.releaseDate)
+        albumReleasedDate.text = resources.getString(R.string.released_date, album.releaseDate)
 
         Glide.with(this).load(album.artist?.picture).into(albumArtistsPicture)
         albumArtistsName.text = album.artist?.name
 
         album.isFavorite.apply {
-            if (this){
+            if (this) {
                 Glide.with(this@AlbumActivity).load(R.drawable.ic_favorite_red).into(albumFavorite)
-            }else{
-                Glide.with(this@AlbumActivity).load(R.drawable.ic_favorite_border_black).into(albumFavorite)
+            } else {
+                Glide.with(this@AlbumActivity).load(R.drawable.ic_favorite_border_black)
+                    .into(albumFavorite)
             }
         }
 
@@ -129,14 +129,14 @@ class AlbumActivity : AppCompatActivity() {
         }
     }
 
-    private fun startArtitsActivity(artistId:Int){
-        val intent = Intent(this,ArtistActivity::class.java)
-        intent.putExtra(ArtistActivity.ARTIST_ID_EXTRAS,artistId)
+    private fun startArtitsActivity(artistId: Int) {
+        val intent = Intent(this, ArtistActivity::class.java)
+        intent.putExtra(ArtistActivity.ARTIST_ID_EXTRAS, artistId)
         startActivity(intent)
     }
 
     override fun startActivity(intent: Intent?) {
-        if (viewModel.isPlaying()){
+        if (viewModel.isPlaying()) {
             viewModel.stopMediaPlayer()
         }
         super.startActivity(intent)

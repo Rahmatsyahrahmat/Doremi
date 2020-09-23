@@ -8,15 +8,15 @@ import rahmatsyah.doremi.data.sources.local.track.TrackEntity
 
 data class TrackAndAlbumAndArtist(
     @Embedded
-    val track:TrackEntity,
+    val track: TrackEntity,
     @Relation(
         parentColumn = "albumId",
         entityColumn = "id"
     )
-    val album:AlbumEntity?,
+    val album: AlbumEntity?,
     @Relation(
         parentColumn = "artistId",
         entityColumn = "id"
     )
-    val artist:ArtistEntity?
+    val artist: ArtistEntity?
 )

@@ -4,11 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class ArtistEntity (
+data class ArtistEntity(
     @PrimaryKey
-    val id:Int,
-    val name:String,
-    val picture:String?,
-    var isFavorite:Boolean = false,
-    var isTop:Boolean = false
+    val id: Int,
+    val name: String,
+    val picture: String?,
+    var isFavorite: Boolean = false,
+    var isTop: Boolean = false
 )

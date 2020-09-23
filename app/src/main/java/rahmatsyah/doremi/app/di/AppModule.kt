@@ -23,10 +23,10 @@ import rahmatsyah.doremi.domain.usecase.search.SearchUseCaseImpl
 
 val appModule = module {
     factory<MainUseCase> {
-        MainUseCaseImpl(get(),get(),get())
+        MainUseCaseImpl(get(), get(), get())
     }
     factory<AlbumUseCase> {
-        AlbumUseCaseImpl(get(),get())
+        AlbumUseCaseImpl(get(), get())
     }
     factory<ArtistUseCase> {
         ArtistUseCaseImpl(get())
@@ -41,7 +41,7 @@ val appModule = module {
         FavoriteTrackUseCaseImpl(get())
     }
     factory<SearchUseCase> {
-        SearchUseCaseImpl(get(),get(),get())
+        SearchUseCaseImpl(get(), get(), get())
     }
 }
 

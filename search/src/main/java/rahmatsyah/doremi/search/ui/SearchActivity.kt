@@ -2,13 +2,12 @@ package rahmatsyah.doremi.search.ui
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.delay
@@ -28,17 +27,17 @@ class SearchActivity : AppCompatActivity() {
 
     private val viewModel: SearchViewModel by viewModel()
 
-    private val albumAdapter:AlbumAdapter by lazy {
+    private val albumAdapter: AlbumAdapter by lazy {
         AlbumAdapter(this)
     }
-    private val artistAdapter:ArtistAdapter by lazy {
+    private val artistAdapter: ArtistAdapter by lazy {
         ArtistAdapter(this)
     }
-    private val trackAdapter:TrackAdapter by lazy {
+    private val trackAdapter: TrackAdapter by lazy {
         TrackAdapter(this)
     }
 
-    private val textWatceh = object :TextWatcher{
+    private val textWatceh = object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) = Unit
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -57,64 +56,64 @@ class SearchActivity : AppCompatActivity() {
 
         setUpView()
 
-        viewModel.getAlbums().observe(this, Observer { result->
-            when(result){
-                is Result.Success ->{
+        viewModel.getAlbums().observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
                     result.data?.let {
                         albumAdapter.setAlbums(it)
                         if (it.isNotEmpty())
                             showAlbumsResult(true)
                     }
                 }
-                is Result.Error ->{
-                    Toast.makeText(this,result.message.toString(),Toast.LENGTH_SHORT).show()
+                is Result.Error -> {
+                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_SHORT).show()
                 }
-                is Result.Loading ->{
+                is Result.Loading -> {
                     showAlbumsResult(false)
                 }
             }
         })
-        viewModel.getArtists().observe(this, Observer { result->
-            when(result){
-                is Result.Success ->{
+        viewModel.getArtists().observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
                     result.data?.let {
                         artistAdapter.setArtists(it)
                         if (it.isNotEmpty())
                             showArtistsResult(true)
                     }
                 }
-                is Result.Error ->{
-                    Toast.makeText(this,result.message.toString(),Toast.LENGTH_SHORT).show()
+                is Result.Error -> {
+                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_SHORT).show()
                 }
-                is Result.Loading ->{
+                is Result.Loading -> {
                     showArtistsResult(false)
                 }
             }
         })
-        viewModel.getTracks().observe(this, Observer { result->
-            when(result){
-                is Result.Success ->{
+        viewModel.getTracks().observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
                     result.data?.let {
                         trackAdapter.setTracks(it)
                         if (it.isNotEmpty())
                             showTracksResult(true)
                     }
-                    viewModel.playedTrackPosition.observe(this, Observer {
+                    viewModel.playedTrackPosition.observe(this, {
                         trackAdapter.setPlayingOn(it)
                     })
                 }
-                is Result.Error ->{
-                    Toast.makeText(this,result.message.toString(),Toast.LENGTH_SHORT).show()
+                is Result.Error -> {
+                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_SHORT).show()
                 }
-                is Result.Loading ->{
+                is Result.Loading -> {
                     showTracksResult(false)
                 }
             }
         })
 
-        viewModel.isResultEmpty().observe(this,{
+        viewModel.isResultEmpty().observe(this, {
             emptyResult.visibility = viewVisibilityState(it)
-            if (it){
+            if (it) {
                 searchProgress.visibility = View.GONE
             }
         })
@@ -129,10 +128,10 @@ class SearchActivity : AppCompatActivity() {
         searchTracksList.adapter = trackAdapter
 
         trackAdapter.setOnItemPlayListener { track, position ->
-            if (track.isPlaying){
+            if (track.isPlaying) {
                 viewModel.stopMediaPlayer()
                 trackAdapter.stop(position)
-            }else {
+            } else {
                 trackAdapter.play(position)
                 viewModel.playMediaPalyer(track, position)
             }
@@ -140,7 +139,7 @@ class SearchActivity : AppCompatActivity() {
 
         trackAdapter.setOnItemClickListener {
             val intent = Intent(this, AlbumActivity::class.java)
-            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS,it)
+            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS, it)
             startActivity(intent)
         }
 
@@ -156,45 +155,45 @@ class SearchActivity : AppCompatActivity() {
 
         albumAdapter.setOnItemClickListener {
             val intent = Intent(this, AlbumActivity::class.java)
-            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS,it)
+            intent.putExtra(AlbumActivity.ALBUM_ID_EXTRAS, it)
             startActivity(intent)
         }
 
         artistAdapter.setOnItemClickListener {
             val intent = Intent(this, ArtistActivity::class.java)
-            intent.putExtra(ArtistActivity.ARTIST_ID_EXTRAS,it)
+            intent.putExtra(ArtistActivity.ARTIST_ID_EXTRAS, it)
             startActivity(intent)
         }
 
         searchField.addTextChangedListener(textWatceh)
     }
 
-    private fun showAlbumsResult(show:Boolean){
+    private fun showAlbumsResult(show: Boolean) {
         searchAlbums.visibility = viewVisibilityState(show)
         searchAlbumsList.visibility = viewVisibilityState(show)
         searchProgress.visibility = viewVisibilityState(!show)
     }
 
-    private fun showArtistsResult(show:Boolean){
+    private fun showArtistsResult(show: Boolean) {
         searchArtists.visibility = viewVisibilityState(show)
         searchArtistsList.visibility = viewVisibilityState(show)
         searchProgress.visibility = viewVisibilityState(!show)
     }
 
-    private fun showTracksResult(show: Boolean){
+    private fun showTracksResult(show: Boolean) {
         searchTracks.visibility = viewVisibilityState(show)
         searchTracksList.visibility = viewVisibilityState(show)
         searchProgress.visibility = viewVisibilityState(!show)
     }
 
-    private fun viewVisibilityState(show: Boolean):Int =
+    private fun viewVisibilityState(show: Boolean): Int =
         if (show)
             View.VISIBLE
         else
             View.GONE
 
     override fun startActivity(intent: Intent?) {
-        if (viewModel.isPlaying()){
+        if (viewModel.isPlaying()) {
             viewModel.stopMediaPlayer()
         }
         super.startActivity(intent)

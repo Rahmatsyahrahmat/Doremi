@@ -13,14 +13,14 @@ class MainUseCaseImpl(
     private val albumRepository: AlbumRepository,
     private val artistRepository: ArtistRepository,
     private val trackRepository: TrackRepository
-):MainUseCase {
+) : MainUseCase {
     override fun getTopAlbums(): Flow<Result<List<Album>>> =
         albumRepository.getTopAlbums()
 
     override fun getTopArtists(): Flow<Result<List<Artist>>> =
         artistRepository.getTopArtists()
 
-    override fun getTopTracks(): Flow<Result<List<Track>>>  =
+    override fun getTopTracks(): Flow<Result<List<Track>>> =
         trackRepository.getTopTracks()
 
     override suspend fun addTrackToFavorite(track: Track) {

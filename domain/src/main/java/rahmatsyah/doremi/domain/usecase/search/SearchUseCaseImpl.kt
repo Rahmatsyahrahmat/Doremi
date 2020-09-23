@@ -13,7 +13,7 @@ class SearchUseCaseImpl(
     private val albumRepository: AlbumRepository,
     private val artistRepository: ArtistRepository,
     private val trackRepository: TrackRepository
-):SearchUseCase {
+) : SearchUseCase {
     override fun searchAlbums(query: String): Flow<Result<List<Album>>> =
         albumRepository.searchAlbums(query)
 

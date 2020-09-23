@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.DiffUtil
 import rahmatsyah.doremi.domain.entity.Artist
 
 
-class ArtistDiffCalback (private val oldItem:List<Artist>, private val newItem:List<Artist>):
-    DiffUtil.Callback(){
+class ArtistDiffCalback(private val oldItem: List<Artist>, private val newItem: List<Artist>) :
+    DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldItem[oldItemPosition].id == newItem[newItemPosition].id
 

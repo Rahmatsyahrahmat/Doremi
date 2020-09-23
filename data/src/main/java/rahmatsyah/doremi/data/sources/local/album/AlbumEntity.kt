@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 @Entity
 data class AlbumEntity(
     @PrimaryKey
-    val id:Int,
-    val title:String,
-    val releaseDate:String?,
-    val cover:String?,
-    val artistId:Int?,
-    var isFavorite:Boolean = false,
-    var isTop:Boolean = false
+    val id: Int,
+    val title: String,
+    val releaseDate: String?,
+    val cover: String?,
+    val artistId: Int?,
+    var isFavorite: Boolean = false,
+    var isTop: Boolean = false
 )

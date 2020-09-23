@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import rahmatsyah.doremi.domain.entity.Album
 
 interface FavoriteAlbumUseCase {
-    fun getFavoriteAlbum():Flow<List<Album>>
+    fun getFavoriteAlbum(): Flow<List<Album>>
 }

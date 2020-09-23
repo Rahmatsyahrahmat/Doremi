@@ -4,7 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import rahmatsyah.doremi.domain.entity.Track
 import rahmatsyah.doremi.domain.repository.TrackRepository
 
-class FavoriteTrackUseCaseImpl(private val trackRepository: TrackRepository):FavoriteTrackUseCase {
+class FavoriteTrackUseCaseImpl(private val trackRepository: TrackRepository) :
+    FavoriteTrackUseCase {
     override fun getFavoriteTracks(): Flow<List<Track>> =
         trackRepository.getFavoriteTracks()
 

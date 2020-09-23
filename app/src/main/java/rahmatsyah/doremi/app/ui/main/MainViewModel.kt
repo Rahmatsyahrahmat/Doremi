@@ -9,21 +9,21 @@ import rahmatsyah.doremi.domain.entity.Artist
 import rahmatsyah.doremi.domain.entity.Track
 import rahmatsyah.doremi.domain.usecase.main.MainUseCase
 
-class MainViewModel(private val mainUseCase: MainUseCase):ViewModel(){
-    val topAlbums:LiveData<Result<List<Album>>> = mainUseCase.getTopAlbums().asLiveData()
-    val topArtists:LiveData<Result<List<Artist>>> = mainUseCase.getTopArtists().asLiveData()
-    val topTracks:LiveData<Result<List<Track>>> = mainUseCase.getTopTracks().asLiveData()
+class MainViewModel(private val mainUseCase: MainUseCase) : ViewModel() {
+    val topAlbums: LiveData<Result<List<Album>>> = mainUseCase.getTopAlbums().asLiveData()
+    val topArtists: LiveData<Result<List<Artist>>> = mainUseCase.getTopArtists().asLiveData()
+    val topTracks: LiveData<Result<List<Track>>> = mainUseCase.getTopTracks().asLiveData()
 
     private val mediaPlayer = MediaPlayer()
     val playedTrackPosition: MutableLiveData<Int> = MutableLiveData(-1)
 
-    fun addTrackToFavorite(track: Track){
+    fun addTrackToFavorite(track: Track) {
         viewModelScope.launch {
             mainUseCase.addTrackToFavorite(track)
         }
     }
 
-    fun playMediaPalyer(track: Track,position:Int){
+    fun playMediaPalyer(track: Track, position: Int) {
         playedTrackPosition.value = position
         mediaPlayer.stop()
         mediaPlayer.reset()
@@ -41,7 +41,7 @@ class MainViewModel(private val mainUseCase: MainUseCase):ViewModel(){
 
     fun isPlaying() = mediaPlayer.isPlaying
 
-    fun stopMediaPlayer(){
+    fun stopMediaPlayer() {
         playedTrackPosition.value = -1
         mediaPlayer.stop()
     }

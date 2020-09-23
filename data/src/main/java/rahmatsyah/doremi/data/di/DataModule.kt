@@ -73,18 +73,18 @@ val networkModule = module {
 
 val repositoryModule = module {
     single {
-        LocalDataSource(get(),get(),get())
+        LocalDataSource(get(), get(), get())
     }
     single {
         RemoteDataSource(get())
     }
     single<AlbumRepository> {
-        AlbumRepositoryImpl(get(),get())
+        AlbumRepositoryImpl(get(), get())
     }
     single<ArtistRepository> {
-        ArtistRepositoryImpl(get(),get())
+        ArtistRepositoryImpl(get(), get())
     }
     single<TrackRepository> {
-        TrackRepositoryImpl(get(),get())
+        TrackRepositoryImpl(get(), get())
     }
 }
