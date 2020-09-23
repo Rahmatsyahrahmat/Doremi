@@ -33,7 +33,7 @@ val databaseModule = module {
     }
 
     single {
-        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("Doremi".toCharArray())
         val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
